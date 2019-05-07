@@ -4,9 +4,8 @@
   "description": "A web app to view the information about youtube clips on user request",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint .",
-    "server": "webpack-dev-server --open --mode development",
-    "watch": "webpack --progress --watch",
+    "lint": "eslint src/",
+    "server": "webpack-dev-server --open --mode development --watch",
     "build": "webpack --progress -p"
   },
   "repository": {
@@ -25,7 +24,11 @@
   },
   "homepage": "https://github.com/rolling-scopes-school/juliastetskaya-2019Q1#readme",
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
