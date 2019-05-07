@@ -1,0 +1,24 @@
+{
+  "name": "youtube-client",
+  "version": "0.0.1",
+  "description": "A web app to view the information about youtube clips on user request",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/juliastetskaya-2019Q1.git"
+  },
+  "keywords": [
+    "youtube",
+    "app",
+    "client"
+  ],
+  "author": "Julia Stetskaya <juliastetskaya@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/juliastetskaya-2019Q1/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/juliastetskaya-2019Q1#readme"
+}
