@@ -3,8 +3,17 @@
 lint:
 	npm run lint
 
-server:
-	npm run server
+start:
+	npm run start
 
 build:
 	npm run build
+
+test:
+	npm run test
+
+test-watch:
+	npm run test-watch
+
+test-coverage:
+	npm run coverage

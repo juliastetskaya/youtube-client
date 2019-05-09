@@ -3,15 +3,15 @@ export default class AppModel {
     this.state = state;
   }
 
-  static extractClipName(data) {
+  static extractClipData(data) {
     return data.items.map(clip => clip.snippet);
   }
 
-  async getClipNames() {
+  async getClipData() {
     const { url } = this.state;
     const responce = await fetch(url);
     const data = await responce.json();
 
-    return AppModel.extractClipName(data);
+    return AppModel.extractClipData(data);
   }
 }
