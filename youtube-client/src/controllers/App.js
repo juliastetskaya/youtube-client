@@ -11,7 +11,7 @@ export default class App {
 
   async start() {
     const model = new AppModel(this.state);
-    const data = await model.getClipNames();
+    const data = await model.getClipData();
     const view = new AppView(data);
 
     view.render();
