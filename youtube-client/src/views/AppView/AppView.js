@@ -16,6 +16,8 @@ export default class AppView {
   }
 
   render() {
+    const clipSection = AppView.createElement('section', 'clip');
+
     const clipList = AppView.createElement('ul', 'clip__list');
 
     this.data.forEach(({
@@ -44,8 +46,10 @@ export default class AppView {
       clipItem.append(clipImage, clipTitle, clipInfo, clipDescription);
 
       clipList.append(clipItem);
+
+      clipSection.append(clipList);
     });
 
-    document.body.append(clipList);
+    document.body.append(clipSection);
   }
 }
