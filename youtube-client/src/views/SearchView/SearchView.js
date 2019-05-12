@@ -10,8 +10,16 @@ export default class SearchView {
     const input = document.createElement('input');
     input.setAttribute('placeholder', this.status);
     input.setAttribute('type', 'text');
+    input.setAttribute('id', 'search-box');
     input.classList.add('search__box');
-    inputSection.append(input);
+
+    const label = document.createElement('label');
+    label.setAttribute('for', 'search-box');
+    label.classList.add('search__label');
+
+    label.append(input);
+    inputSection.append(label);
     document.body.append(inputSection);
+    document.body.classList.add('page');
   }
 }
