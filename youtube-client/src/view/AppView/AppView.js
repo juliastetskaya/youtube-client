@@ -35,16 +35,21 @@ export default class AppView {
 
   static renderClips(data) {
     data.forEach(({
-      title, description, thumbnails, channelTitle, publishedAt,
+      title, descript, image, channelTitle, publishedAt, id, viewCount,
     }) => {
       const clipItem = createElement('li', 'clip__item');
 
       const clipImage = createElement('img', 'clip__image');
-      clipImage.setAttribute('src', thumbnails.medium.url);
+      clipImage.setAttribute('src', image.url);
       clipImage.setAttribute('alt', title);
-      clipImage.setAttribute('width', thumbnails.medium.width);
+      clipImage.setAttribute('width', image.width);
 
-      const clipTitle = createElement('h2', 'clip__title', title);
+      const clipLink = createElement('a', 'clip__link', title);
+      clipLink.setAttribute('href', `https://www.youtube.com/watch?v=${id}`);
+      clipLink.setAttribute('target', '_blank');
+
+      const clipTitle = createElement('h2', 'clip__title');
+      clipTitle.append(clipLink);
 
       const clipInfo = createElement('div', 'clip__info');
 
@@ -53,9 +58,11 @@ export default class AppView {
       const clipDate = createElement('time', 'clip__date', publishedAt.slice(0, 10));
       clipDate.setAttribute('datetime', publishedAt);
 
-      clipInfo.append(clipChannelTitle, clipDate);
+      const clipViewCount = createElement('p', 'clip__view-count', viewCount);
 
-      const clipDescription = createElement('p', 'clip__description', description);
+      clipInfo.append(clipChannelTitle, clipDate, clipViewCount);
+
+      const clipDescription = createElement('p', 'clip__description', descript);
 
       clipItem.append(clipImage, clipTitle, clipInfo, clipDescription);
 

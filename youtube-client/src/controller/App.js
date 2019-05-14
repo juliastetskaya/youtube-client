@@ -5,7 +5,7 @@ import config from './config';
 
 export default class App {
   constructor() {
-    this.state = {
+    this.firstRequest = {
       urlApi: config.urlApi,
       typeRequest: 'search',
       request: {
@@ -16,7 +16,16 @@ export default class App {
         q: '',
       },
     };
-    this.clipIds = [];
+
+    this.secondRequest = {
+      urlApi: config.urlApi,
+      typeRequest: 'videos',
+      request: {
+        key: config.keyApi,
+        id: [],
+        part: 'snippet,statistics',
+      },
+    };
   }
 
   // https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&id=nq4aU9gmZQk,REu2BcnlD34,qbPTdW7KgOg&part=snippet,statistics
@@ -34,15 +43,20 @@ export default class App {
       }
       globalTimeout = setTimeout(async () => {
         globalTimeout = null;
-        const request = event.target.value.trim();
-        if (request.length !== 0) {
-          this.state.request.q = request;
+        const userRequest = event.target.value.trim();
+        if (userRequest.length !== 0) {
+          this.firstRequest.request.q = userRequest;
 
-          const model = new AppModel(this.state);
-          const data = await model.getClipData();
-          data.clipData.forEach(clip => this.clipIds.push(clip.id.videoId));
+          const model = new AppModel(this.firstRequest);
+          const dataFirstRequest = await model.getResponseData();
+          const { clipIds } = dataFirstRequest;
 
-          AppView.renderClips(data.clipData);
+          this.secondRequest.request.id = clipIds.join(',');
+          const clipData = await model.getClipData(this.secondRequest);
+
+          const data = clipData.map((clip, index) => ({ ...clip, id: clipIds[index] }));
+
+          AppView.renderClips(data);
         }
       }, 1000);
     });
