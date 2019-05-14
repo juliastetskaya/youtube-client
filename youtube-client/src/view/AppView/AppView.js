@@ -2,6 +2,11 @@ import createElement from '../DomApi';
 
 export default class AppView {
   static render(message) {
+    const link = document.createElement('link');
+    link.setAttribute('href', 'https://fonts.googleapis.com/css?family=PT+Sans:400,700');
+    link.setAttribute('rel', 'stylesheet');
+    document.head.append(link);
+
     const wrapper = createElement('div', 'page__wrapper');
 
     const inputSection = createElement('section', 'search');
@@ -35,16 +40,18 @@ export default class AppView {
 
   static renderClips(data) {
     data.forEach(({
-      title, descript, image, channelTitle, publishedAt, id, viewCount,
+      titleClip, descript, image, channelName, publishedAt, id, viewCount,
     }) => {
       const clipItem = createElement('li', 'clip__item');
 
+      const clipWrapper = createElement('div', 'clip__wrapper');
+
       const clipImage = createElement('img', 'clip__image');
       clipImage.setAttribute('src', image.url);
-      clipImage.setAttribute('alt', title);
+      clipImage.setAttribute('alt', titleClip);
       clipImage.setAttribute('width', image.width);
 
-      const clipLink = createElement('a', 'clip__link', title);
+      const clipLink = createElement('a', 'clip__link', titleClip);
       clipLink.setAttribute('href', `https://www.youtube.com/watch?v=${id}`);
       clipLink.setAttribute('target', '_blank');
 
@@ -53,7 +60,7 @@ export default class AppView {
 
       const clipInfo = createElement('div', 'clip__info');
 
-      const clipChannelTitle = createElement('p', 'clip__channel-title', channelTitle);
+      const clipChannelTitle = createElement('p', 'clip__channel-title', channelName);
 
       const clipDate = createElement('time', 'clip__date', publishedAt.slice(0, 10));
       clipDate.setAttribute('datetime', publishedAt);
@@ -64,7 +71,8 @@ export default class AppView {
 
       const clipDescription = createElement('p', 'clip__description', descript);
 
-      clipItem.append(clipImage, clipTitle, clipInfo, clipDescription);
+      clipWrapper.append(clipImage, clipTitle, clipInfo, clipDescription);
+      clipItem.append(clipWrapper);
 
       const clipList = document.querySelector('.clip__list');
 

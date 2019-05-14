@@ -17,9 +17,11 @@ export default class AppModel {
       } = snippet;
       const { viewCount } = statistics;
       const descript = description.length > 114 ? `${description.slice(0, 114)}...` : description;
+      const titleClip = title.length > 45 ? `${title.slice(0, 45)}...` : title;
+      const channelName = channelTitle.length > 30 ? `${channelTitle.slice(0, 30)}...` : channelTitle;
       const image = snippet.thumbnails.medium;
       return {
-        title, channelTitle, descript, publishedAt, viewCount, image,
+        titleClip, channelName, descript, publishedAt, viewCount, image,
       };
     });
   }
