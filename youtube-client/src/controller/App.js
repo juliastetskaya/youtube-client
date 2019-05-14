@@ -20,20 +20,25 @@ export default class App {
   }
 
   start() {
+    let globalTimeout = null;
     // const view = new AppView();
-    AppView.renderSearch('What do you want to find?');
+    AppView.render('What do you want to find?');
 
     const input = document.getElementById('search-box');
     input.addEventListener('input', (event) => {
-      this.state.request.q = event.target.value.trim();
+      if (globalTimeout !== null) {
+        clearTimeout(globalTimeout);
+      }
+      globalTimeout = setTimeout(async () => {
+        globalTimeout = null;
+        this.state.request.q = event.target.value.trim();
 
-      setTimeout(async () => {
         const model = new AppModel(this.state);
         const data = await model.getClipData();
         data.forEach(clip => this.clipIds.push(clip.id.videoId));
 
-        AppView.render(data);
-      }, 500);
+        AppView.renderClips(data);
+      }, 1000);
     });
   }
 }

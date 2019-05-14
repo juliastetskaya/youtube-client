@@ -1,7 +1,9 @@
 import createElement from '../DomApi';
 
 export default class AppView {
-  static renderSearch(message) {
+  static render(message) {
+    const wrapper = createElement('div', 'page__wrapper');
+
     const inputSection = createElement('section', 'search');
 
     const input = createElement('input', 'search__box');
@@ -15,17 +17,18 @@ export default class AppView {
     label.append(input);
     inputSection.append(label);
 
-    const wrapper = createElement('div', 'page__wrapper');
-    wrapper.append(inputSection);
-    document.body.append(wrapper);
-    document.body.classList.add('page');
-  }
-
-  static render(data) {
     const clipSection = createElement('section', 'clip');
 
     const clipList = createElement('ul', 'clip__list');
 
+    clipSection.append(clipList);
+
+    wrapper.append(inputSection, clipSection);
+    document.body.append(wrapper);
+    document.body.classList.add('page');
+  }
+
+  static renderClips(data) {
     data.forEach(({
       title, description, thumbnails, channelTitle, publishedAt,
     }) => {
@@ -51,12 +54,9 @@ export default class AppView {
 
       clipItem.append(clipImage, clipTitle, clipInfo, clipDescription);
 
+      const clipList = document.querySelector('.clip__list');
+
       clipList.append(clipItem);
-
-      clipSection.append(clipList);
     });
-
-    const wrapper = document.body.getElementsByClassName('page__wrapper')[0];
-    wrapper.append(clipSection);
   }
 }
