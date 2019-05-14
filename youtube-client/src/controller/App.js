@@ -13,11 +13,13 @@ export default class App {
         type: 'video',
         part: 'snippet',
         maxResults: 15,
-        q: 'js',
+        q: '',
       },
     };
     this.clipIds = [];
   }
+
+  // https://www.googleapis.com/youtube/v3/videos?key=AIzaSyCTWC75i70moJLzyNh3tt4jzCljZcRkU8Y&id=nq4aU9gmZQk,REu2BcnlD34,qbPTdW7KgOg&part=snippet,statistics
 
   start() {
     let globalTimeout = null;
@@ -38,9 +40,9 @@ export default class App {
 
           const model = new AppModel(this.state);
           const data = await model.getClipData();
-          data.forEach(clip => this.clipIds.push(clip.id.videoId));
+          data.clipData.forEach(clip => this.clipIds.push(clip.id.videoId));
 
-          AppView.renderClips(data);
+          AppView.renderClips(data.clipData);
         }
       }, 1000);
     });
