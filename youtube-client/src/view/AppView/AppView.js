@@ -28,6 +28,11 @@ export default class AppView {
     document.body.classList.add('page');
   }
 
+  static clearClips() {
+    const clipList = document.querySelector('.clip__list');
+    clipList.innerHTML = '';
+  }
+
   static renderClips(data) {
     data.forEach(({
       title, description, thumbnails, channelTitle, publishedAt,
