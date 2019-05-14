@@ -1,8 +1,4 @@
-import App from './controllers/App';
-import Search from './controllers/Search';
+import App from './controller/App';
 
 const app = new App();
 app.start();
-
-const search = new Search();
-search.start();
