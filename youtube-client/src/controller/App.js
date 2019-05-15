@@ -1,5 +1,6 @@
 import AppModel from '../model/AppModel';
 import AppView from '../view/AppView';
+import Slider from '../view/Slider';
 import config from './config';
 
 
@@ -57,6 +58,7 @@ export default class App {
           const data = clipData.map((clip, index) => ({ ...clip, id: clipIds[index] }));
 
           AppView.renderClips(data);
+          Slider.start();
         }
       }, 1000);
     });
