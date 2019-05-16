@@ -5,7 +5,12 @@ export default class AppView {
     const link = document.createElement('link');
     link.setAttribute('href', 'https://fonts.googleapis.com/css?family=PT+Sans:400,700');
     link.setAttribute('rel', 'stylesheet');
-    document.head.append(link);
+
+    const meta = document.createElement('meta');
+    meta.setAttribute('name', 'viewport');
+    meta.setAttribute('content', 'width=device-width,initial-scale=1');
+    document.head.append(link, meta);
+
 
     const wrapper = createElement('div', 'page__wrapper');
 

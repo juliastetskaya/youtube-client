@@ -4,13 +4,13 @@ export default class Slider {
     let isDown = false;
     let startX;
     let scrollLeft;
+    let step;
 
     slider.addEventListener('mousedown', (event) => {
       isDown = true;
       slider.classList.add('active');
       startX = event.pageX - slider.offsetLeft;
-      // eslint-disable-next-line prefer-destructuring
-      scrollLeft = slider.scrollLeft;
+      ({ scrollLeft } = slider);
     });
 
     slider.addEventListener('mouseleave', () => {
@@ -18,19 +18,22 @@ export default class Slider {
       slider.classList.remove('active');
     });
 
-    slider.addEventListener('mouseup', () => {
-      isDown = false;
-      slider.classList.remove('active');
-    });
-
     slider.addEventListener('mousemove', (event) => {
       if (isDown) {
         event.preventDefault();
-
-
         const x = event.pageX - slider.offsetLeft;
-        const step = (x - startX) * 2;
+        step = (x - startX) * 2;
         slider.scrollLeft = scrollLeft - step;
+      }
+    });
+
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.classList.remove('active');
+      if (step > 0) {
+        slider.scrollLeft = scrollLeft - document.documentElement.clientWidth;
+      } else if (step < 0) {
+        slider.scrollLeft = scrollLeft + document.documentElement.clientWidth;
       }
     });
   }

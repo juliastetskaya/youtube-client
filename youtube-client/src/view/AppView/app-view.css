@@ -16,14 +16,6 @@ html {
   padding: 5rem 0;
 
   display: flex;
-
-  will-change: transform;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  user-select: none;
-  cursor: pointer;
-  transition: all 0.2s;
-
 }
 
 .clip__item {
