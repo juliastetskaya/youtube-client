@@ -1,6 +1,7 @@
 import AppModel from '../model/AppModel';
 import AppView from '../view/AppView';
 import Slider from '../view/Slider';
+import Pagination from '../view/PaginationView';
 import config from './config';
 
 
@@ -60,6 +61,7 @@ export default class App {
 
           AppView.renderClips(data);
           Slider.start();
+          Pagination.render();
         }
       }, 1000);
     });

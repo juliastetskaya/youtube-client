@@ -1,6 +1,7 @@
-export default (tag, className, textNode = '') => {
+export default (tag, classNames, textNode = '') => {
   const element = document.createElement(tag);
-  element.classList.add(className);
+  const classes = classNames.split(' ');
+  classes.forEach(className => element.classList.add(className));
 
   if (textNode) {
     const elementNode = document.createTextNode(textNode);

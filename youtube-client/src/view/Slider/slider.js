@@ -1,7 +1,6 @@
 export default class Slider {
   static start() {
     const slider = document.querySelector('.clip__list');
-    const windowWidth = document.documentElement.clientWidth;
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -14,6 +13,8 @@ export default class Slider {
       slider.classList.add('active');
       startX = event.pageX - slider.offsetLeft;
       ({ scrollLeft } = slider);
+      console.log(slider.clientLeft);
+      console.log(slider.clientWidth);
     });
 
     slider.addEventListener('mouseleave', () => {
@@ -26,12 +27,13 @@ export default class Slider {
       slider.style.scrollBehavior = 'smooth';
       slider.classList.remove('active');
       if (step > 0 && pageNumber > 1) {
-        slider.scrollLeft = scrollLeft - windowWidth;
+        slider.scrollLeft = scrollLeft - document.documentElement.clientWidth;
         pageNumber -= 1;
       } else if (step < 0) {
-        slider.scrollLeft = scrollLeft + windowWidth;
+        slider.scrollLeft = scrollLeft + document.documentElement.clientWidth;
         pageNumber += 1;
       }
+      console.log('after', slider.scrollLeft);
     });
 
     slider.addEventListener('mousemove', (event) => {
@@ -42,6 +44,21 @@ export default class Slider {
         step = x - startX;
         slider.scrollLeft = scrollLeft - step;
       }
+    });
+
+    let previousWidth = window.innerWidth || document.body.clientWidth;
+
+    window.addEventListener('resize', () => {
+      const currentWidth = window.innerWidth || document.body.clientWidth;
+      const difference = previousWidth - currentWidth;
+      console.log('difference', difference);
+      console.log(slider.scrollLeft);
+      if (slider.scrollLeft > 0) {
+        slider.scrollLeft -= difference;
+      }
+      console.log(slider.offsetWidth);
+      console.log(slider.scrollLeft);
+      previousWidth = currentWidth;
     });
   }
 }

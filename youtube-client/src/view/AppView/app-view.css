@@ -26,6 +26,10 @@ html {
 
 /* -----styles for clips----- */
 
+.clip {
+  margin-bottom: 7rem;
+}
+
 .clip__list {
   list-style: none;
   margin: 0;
@@ -203,6 +207,9 @@ html {
 
 .page__wrapper {
   overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
 
