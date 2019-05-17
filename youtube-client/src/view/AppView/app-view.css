@@ -1,3 +1,7 @@
+:root {
+  --clips-per-page: 4;
+}
+
 @font-face {
   font-family: 'Font-Awesome';
   font-weight: 400;
@@ -10,12 +14,31 @@ html {
   font-size: 3px;
 }
 
+.page {
+  margin: 0;
+  padding: 0;
+  background-color: #c4c4c4;
+  position: fixed;
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: 'PT Sans', sans-serif;
+}
+
+/* -----styles for clips----- */
+
 .clip__list {
   list-style: none;
   margin: 0;
   padding: 5rem 0;
+  cursor: grab;
 
   display: flex;
+
+  will-change: transform;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  user-select: none;
+  transition: all 0.2s;
 }
 
 .clip__item {
@@ -51,6 +74,7 @@ html {
 
 .clip__link:hover {
   color: #56a83c;
+  cursor: pointer;
 }
 
 .clip__wrapper {
@@ -63,7 +87,7 @@ html {
   display: flex;
   flex-direction: column;
 
-  width: calc(calc(100vw/4) - 16rem);
+  width: calc(calc(100vw/var(--clips-per-page)) - 16rem);
   box-sizing: border-box;
 }
 
@@ -135,17 +159,7 @@ html {
 }
 
 
-
-
-.page {
-  margin: 0;
-  padding: 0;
-  background-color: #c4c4c4;
-  position: fixed;
-  width: 100vw;
-  overflow-x: hidden;
-  font-family: 'PT Sans', sans-serif;
-}
+/* -----styles for seach-box----- */
 
 .search__label {
   width: 60%;
@@ -189,4 +203,36 @@ html {
 
 .page__wrapper {
   overflow: hidden;
+}
+
+
+
+@media (max-width: 1024px) {
+  html {
+    font-size: 2.8px;
+  }
+
+  .clip__wrapper {
+    --clips-per-page: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 2.5px;
+  }
+
+  .clip__wrapper {
+    --clips-per-page: 2;
+  }
+}
+
+@media (max-width: 375px) {
+  html {
+    font-size: 2.2px;
+  }
+
+  .clip__wrapper {
+    --clips-per-page: 1;
+  }
 }

@@ -4,12 +4,3 @@
   transform: scale(1.01);
 }
 
-.clip__list {
-  will-change: transform;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  user-select: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  scroll-behavior: smooth;
-}

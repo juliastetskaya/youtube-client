@@ -50,6 +50,7 @@ export default class App {
 
           const model = new AppModel(this.firstRequest);
           const dataFirstRequest = await model.getResponseData();
+          // console.log(dataFirstRequest.nextPageToken);
           const { clipIds } = dataFirstRequest;
 
           this.secondRequest.request.id = clipIds.join(',');
