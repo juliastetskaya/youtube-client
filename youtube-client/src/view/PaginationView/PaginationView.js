@@ -1,6 +1,6 @@
 import createElement from '../DomApi';
 
-export default class PaginationView {
+export default class SliderView {
   constructor(page) {
     this.currentPage = page;
     this.prevPage = page - 1;

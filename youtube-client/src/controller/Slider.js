@@ -1,4 +1,4 @@
-import pagination from './Pagination';
+import PaginationView from '../view/PaginationView';
 
 export default class Slider {
   constructor() {
@@ -60,10 +60,10 @@ export default class Slider {
       slider.classList.remove('active');
       if (step > 0) {
         slider.scrollLeft = scrollLeft - document.documentElement.clientWidth;
-        pagination.changePage('decrease');
+        PaginationView.changePage('decrease');
       } else if (step < 0) {
         slider.scrollLeft = scrollLeft + document.documentElement.clientWidth;
-        pagination.changePage('increase');
+        PaginationView.changePage('increase');
         this.isLastPage();
       }
     };
@@ -93,5 +93,34 @@ export default class Slider {
     slider.addEventListener('mousemove', mouseMoveHandler);
 
     window.addEventListener('resize', resizeHandler);
+
+    // --- Work with pagination ---
+
+    const pagination = new PaginationView(1);
+    pagination.render();
+
+    const beforePrevPage = document.querySelector('.before-prev-page');
+    const prevPage = document.querySelector('.prev-page');
+    const nextPage = document.querySelector('.next-page');
+    const paginationList = document.querySelector('.pagination__list');
+
+    const mouseClickHandler = (event) => {
+      const { target } = event;
+      slider.style.scrollBehavior = 'smooth';
+      if (target === nextPage) {
+        slider.scrollLeft += document.documentElement.clientWidth;
+        PaginationView.changePage('increase');
+        this.isLastPage();
+      } else if (target === prevPage) {
+        slider.scrollLeft -= document.documentElement.clientWidth;
+        PaginationView.changePage('decrease');
+      } else if (target === beforePrevPage) {
+        slider.scrollLeft -= (document.documentElement.clientWidth * 2);
+        PaginationView.changePage('decrease');
+        PaginationView.changePage('decrease');
+      }
+    };
+
+    paginationList.addEventListener('click', mouseClickHandler);
   }
 }

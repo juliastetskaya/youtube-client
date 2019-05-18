@@ -1,7 +1,6 @@
 import AppModel from '../model/AppModel';
 import AppView from '../view/AppView';
 import Slider from './Slider';
-import Pagination from './Pagination';
 
 export default class App {
   constructor() {
@@ -42,7 +41,6 @@ export default class App {
           });
 
           slider.start();
-          Pagination.start();
         }
       }, 1000);
     });
