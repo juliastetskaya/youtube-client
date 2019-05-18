@@ -1,17 +1,11 @@
 export default class AppModel {
-  constructor(request) {
-    this.request = request;
-  }
-
-  static extractResponseData(data) {
-    const clipIds = data.items.map(clip => clip.id.videoId);
-    const { nextPageToken } = data;
-    const { totalResults } = data.pageInfo;
-    return { clipIds, nextPageToken, totalResults };
+  constructor(state) {
+    this.state = state;
+    this.pageToken = null;
   }
 
   static extractClipData(data) {
-    return data.items.map(({ snippet, statistics }) => {
+    return data.items.map(({ id, snippet, statistics }) => {
       const {
         title, channelTitle, description, publishedAt,
       } = snippet;
@@ -21,33 +15,27 @@ export default class AppModel {
       const channelName = channelTitle.length > 25 ? `${channelTitle.slice(0, 25)}...` : channelTitle;
       const image = snippet.thumbnails.medium;
       return {
-        titleClip, channelName, descript, publishedAt, viewCount, image,
+        titleClip, channelName, descript, publishedAt, viewCount, image, id,
       };
     });
   }
 
-  static getUrl(state) {
-    const { urlApi, typeRequest, request } = state;
-    const url = new URL(typeRequest, urlApi);
-    Object.keys(request).map(key => url.searchParams.append(key, request[key]));
-
-    return url;
-  }
-
-  async getResponseData() {
-    const url = AppModel.getUrl(this.request);
-    const response = await fetch(url.href);
+  async getData() {
+    const { urlApi, keyApi, request } = this.state;
+    const nextPage = this.pageToken === null ? '' : `&pageToken=${this.pageToken}`;
+    const url = `${urlApi}search?key=${keyApi}&type=video&part=snippet&maxResults=15&q=${request}${nextPage}`;
+    const response = await fetch(url);
     const data = await response.json();
 
-    return AppModel.extractResponseData(data);
-  }
+    const id = data.items.map(clip => clip.id.videoId).join(',');
+    const { nextPageToken } = data;
+    // const { totalResults } = data.pageInfo;
+    this.pageToken = nextPageToken;
 
-  async getClipData(request) {
-    this.request = request;
-    const url = AppModel.getUrl(this.request);
-    const response = await fetch(url.href);
-    const data = await response.json();
+    const statisticsUrl = `${urlApi}videos?key=${keyApi}&id=${id}&part=snippet,statistics`;
+    const statisticsResponse = await fetch(statisticsUrl);
+    const statisticsData = await statisticsResponse.json();
 
-    return AppModel.extractClipData(data);
+    return AppModel.extractClipData(statisticsData);
   }
 }
