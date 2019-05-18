@@ -83,6 +83,7 @@ html {
   border-radius: 3rem;
   padding: 2rem;
   height: 100%;
+  max-height: 130rem;
 
   position: relative;
   display: flex;

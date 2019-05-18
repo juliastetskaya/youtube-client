@@ -34,7 +34,14 @@ export default class App {
           const data = await model.getData();
 
           AppView.renderClips(data);
-          Slider.start();
+
+          const slider = new Slider();
+          slider.addHandler('getExtraClips', async () => {
+            const dataExtra = await model.getData();
+            AppView.renderClips(dataExtra);
+          });
+
+          slider.start();
           Pagination.start();
         }
       }, 1000);

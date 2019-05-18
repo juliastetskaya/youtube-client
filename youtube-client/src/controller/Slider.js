@@ -1,6 +1,10 @@
 import pagination from './Pagination';
 
 export default class Slider {
+  constructor() {
+    this.handlers = {};
+  }
+
   static getClipsPerPage() {
     const wrapper = document.querySelector('.clip__wrapper');
     return getComputedStyle(wrapper).getPropertyValue('--clips-per-page');
@@ -16,14 +20,20 @@ export default class Slider {
     return Number(currentPage.textContent);
   }
 
-  static isLastPage() {
+  addHandler(event, handler) {
+    this.handlers[event] = handler;
+  }
+
+  isLastPage() {
     const clipsPerPage = Slider.getClipsPerPage();
     const countWatchedClips = clipsPerPage * Slider.getCurrentPage();
     const countNonWatchedClips = Slider.getCountsClips() - countWatchedClips;
-    return countNonWatchedClips < clipsPerPage;
+    if (countNonWatchedClips < clipsPerPage) {
+      this.handlers.getExtraClips();
+    }
   }
 
-  static start() {
+  start() {
     const slider = document.querySelector('.clip__list');
     let previousWidth = window.innerWidth || document.body.clientWidth;
     let isDown = false;
@@ -54,6 +64,7 @@ export default class Slider {
       } else if (step < 0) {
         slider.scrollLeft = scrollLeft + document.documentElement.clientWidth;
         pagination.changePage('increase');
+        this.isLastPage();
       }
     };
 
@@ -75,10 +86,6 @@ export default class Slider {
       }
       previousWidth = currentWidth;
     };
-
-    const wrapper = document.querySelector('.page__wrapper');
-
-    wrapper.addEventListener('click', Slider.isLastPage);
 
     slider.addEventListener('mousedown', mouseDownHandler);
     slider.addEventListener('mouseleave', mouseLeaveHandler);
