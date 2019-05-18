@@ -212,6 +212,13 @@ html {
   flex-direction: column;
 }
 
+/* -----styles for slider----- */
+.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: grabbing;
+  transform: scale(1.01);
+}
+
 
 
 @media (max-width: 1024px) {

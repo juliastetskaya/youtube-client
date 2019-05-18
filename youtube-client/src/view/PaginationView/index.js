@@ -1,5 +1,5 @@
-import pagination from './pagination';
+import PaginationView from './PaginationView';
 
 import './pagination.css';
 
-export default pagination;
+export default PaginationView;

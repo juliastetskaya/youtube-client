@@ -22,12 +22,20 @@
 }
 
 .pagination__item {
-  padding: 10px;
+  padding: 0.5rem 2.3rem;
   background-color: #ffffff;
   border: 2px solid #a0a0a0;
   border-radius: 50%;
   outline: none;
   margin-right: 3rem;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 5rem;
+  color:#ffffff;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .pagination__item:last-child {
