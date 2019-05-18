@@ -33,13 +33,16 @@ export default class Slider {
     }
   }
 
-  start() {
+  async start() {
     const slider = document.querySelector('.clip__list');
     let previousWidth = window.innerWidth || document.body.clientWidth;
     let isDown = false;
     let startX;
     let scrollLeft;
     let step;
+
+    const pagination = new PaginationView(1);
+    pagination.render();
 
     const mouseDownHandler = (event) => {
       event.preventDefault();
@@ -54,7 +57,8 @@ export default class Slider {
       slider.classList.remove('active');
     };
 
-    const mouseUpHandler = () => {
+    const mouseUpHandler = (event) => {
+      console.log(event.target);
       isDown = false;
       slider.style.scrollBehavior = 'smooth';
       slider.classList.remove('active');
@@ -96,9 +100,6 @@ export default class Slider {
 
     // --- Work with pagination ---
 
-    const pagination = new PaginationView(1);
-    pagination.render();
-
     const beforePrevPage = document.querySelector('.before-prev-page');
     const prevPage = document.querySelector('.prev-page');
     const nextPage = document.querySelector('.next-page');
@@ -122,5 +123,14 @@ export default class Slider {
     };
 
     paginationList.addEventListener('click', mouseClickHandler);
+  }
+
+  static clear() {
+    const wrapper = document.querySelector('.page__wrapper');
+    const paginationList = document.querySelector('.pagination');
+
+    if (paginationList !== null) {
+      wrapper.removeChild(paginationList);
+    }
   }
 }

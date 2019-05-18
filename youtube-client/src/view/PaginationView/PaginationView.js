@@ -8,7 +8,7 @@ export default class SliderView {
     this.nextPage = page + 1;
   }
 
-  render() {
+  async render() {
     const paginationSection = createElement('section', 'pagination');
 
     const pagination = createElement('div', 'pagination__list');

@@ -11,7 +11,6 @@ export default class AppView {
     meta.setAttribute('content', 'width=device-width,initial-scale=1');
     document.head.append(link, meta);
 
-
     const wrapper = createElement('div', 'page__wrapper');
 
     const inputSection = createElement('section', 'search');

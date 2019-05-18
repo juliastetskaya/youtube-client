@@ -10,7 +10,7 @@ export default class AppModel {
         title, channelTitle, description, publishedAt,
       } = snippet;
       const { viewCount } = statistics;
-      const descript = description.length > 114 ? `${description.slice(0, 114)}...` : description;
+      const descript = description.length > 150 ? `${description.slice(0, 150)}...` : description;
       const titleClip = title.length > 45 ? `${title.slice(0, 45)}...` : title;
       const channelName = channelTitle.length > 25 ? `${channelTitle.slice(0, 25)}...` : channelTitle;
       const image = snippet.thumbnails.medium;
