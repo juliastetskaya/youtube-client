@@ -16,6 +16,7 @@ export default class App {
         part: 'snippet',
         maxResults: 15,
         q: '',
+        nextPageToken: '',
       },
     };
 
