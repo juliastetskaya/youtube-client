@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 export default class AppModel {
   constructor(state) {
     this.state = state;
-    this.pageToken = null;
+    this.pageToken = undefined;
   }
 
   static extractClipData(data) {
@@ -24,7 +24,7 @@ export default class AppModel {
 
   async getData() {
     const { urlApi, keyApi, request } = this.state;
-    const nextPage = this.pageToken === null ? '' : `&pageToken=${this.pageToken}`;
+    const nextPage = this.pageToken === undefined ? '' : `&pageToken=${this.pageToken}`;
     const url = `${urlApi}search?key=${keyApi}&type=video&part=snippet&maxResults=15&q=${request}${nextPage}`;
     const response = await fetch(url);
     const data = await response.json();

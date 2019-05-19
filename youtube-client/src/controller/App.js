@@ -19,6 +19,7 @@ export default class App {
     let globalTimeout = null;
     // const view = new AppView();
     AppView.render('What do you want to find?');
+    AppView.renderError();
     const model = new AppModel(this.state);
     const slider = new Slider();
 
@@ -34,17 +35,21 @@ export default class App {
         if (userRequest.length !== 0) {
           AppView.clearClips();
           Slider.clear();
+          document.querySelector('.error').classList.add('visually-hidden');
           this.state.request = userRequest;
           const data = await model.getData();
+          if (data.length === 0) {
+            document.querySelector('.error').classList.remove('visually-hidden');
+          } else {
+            AppView.renderClips(data);
 
-          AppView.renderClips(data);
+            slider.addHandler('getExtraClips', async () => {
+              const dataExtra = await model.getData();
+              AppView.renderClips(dataExtra);
+            });
 
-          slider.addHandler('getExtraClips', async () => {
-            const dataExtra = await model.getData();
-            AppView.renderClips(dataExtra);
-          });
-
-          slider.start();
+            slider.start();
+          }
         }
       }, 1000);
     });

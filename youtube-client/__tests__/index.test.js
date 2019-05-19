@@ -1,7 +1,7 @@
 import AppView from '../src/view/AppView';
 import AppModel from '../src/model/AppModel';
 import data from './__fixtures__/data';
-import state from './__fixtures__/state';
+// import state from './__fixtures__/state';
 
 describe('AppView.render', () => {
   it('Should be a function', () => {

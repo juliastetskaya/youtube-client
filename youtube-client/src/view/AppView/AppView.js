@@ -87,4 +87,13 @@ export default class AppView {
       clipList.append(clipItem);
     });
   }
+
+  static renderError() {
+    const sectionError = createElement('section', 'error visually-hidden');
+    const textError = createElement('p', 'error__text', 'No results found');
+
+    sectionError.append(textError);
+
+    document.querySelector('.page__wrapper').append(sectionError);
+  }
 }
