@@ -1,5 +1,3 @@
-import 'whatwg-fetch';
-
 export default class AppModel {
   constructor(state) {
     this.state = state;

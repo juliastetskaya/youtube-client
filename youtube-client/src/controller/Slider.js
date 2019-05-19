@@ -7,7 +7,7 @@ export default class Slider {
 
   static getClipsPerPage() {
     const wrapper = document.querySelector('.clip__wrapper');
-    return getComputedStyle(wrapper).getPropertyValue('--clips-per-page');
+    return Number(getComputedStyle(wrapper).getPropertyValue('--clips-per-page'));
   }
 
   static getCountsClips() {
@@ -40,10 +40,12 @@ export default class Slider {
     let startX;
     let scrollLeft;
     let step;
+    let leftElement;
 
     const pagination = new PaginationView(1);
     pagination.render();
 
+    const getLeftElement = () => (Slider.getCurrentPage() - 1) * Slider.getClipsPerPage() + 1;
 
     const mouseDownHandler = (event) => {
       event.preventDefault();
@@ -76,6 +78,7 @@ export default class Slider {
         this.isLastPage();
       }
       step = 0;
+      leftElement = getLeftElement();
     };
 
     const mouseMoveHandler = (event) => {
@@ -89,12 +92,31 @@ export default class Slider {
     };
 
     const resizeHandler = () => {
-      const numberCurrentPage = Number(document.querySelector('.current-page').textContent);
       const currentWidth = window.innerWidth || document.body.clientWidth;
       const difference = previousWidth - currentWidth;
       if (slider.scrollLeft > 0) {
-        slider.scrollLeft -= (difference * (numberCurrentPage - 1));
+        slider.scrollLeft -= (difference * (Slider.getCurrentPage() - 1));
       }
+
+      const newLeftElement = getLeftElement();
+      if ((newLeftElement + Slider.getClipsPerPage() - 1) < leftElement) {
+        const currentPageLeftElement = Math.ceil(leftElement / Slider.getClipsPerPage());
+        let diff = currentPageLeftElement - Slider.getCurrentPage();
+        slider.scrollLeft += document.documentElement.clientWidth * diff;
+        while (diff > 0) {
+          PaginationView.changePage('increase');
+          diff -= 1;
+        }
+      } else if (newLeftElement > leftElement) {
+        const currentPageLeftElement = Math.ceil(leftElement / Slider.getClipsPerPage());
+        let diff = Slider.getCurrentPage() - currentPageLeftElement;
+        slider.scrollLeft -= document.documentElement.clientWidth * diff;
+        while (diff > 0) {
+          PaginationView.changePage('decrease');
+          diff -= 1;
+        }
+      }
+      leftElement = getLeftElement();
       previousWidth = currentWidth;
     };
 
@@ -129,6 +151,7 @@ export default class Slider {
         this.isLastPage();
       }
       step = 0;
+      leftElement = getLeftElement();
     };
 
     slider.addEventListener('mousedown', mouseDownHandler);
@@ -164,6 +187,7 @@ export default class Slider {
         PaginationView.changePage('decrease');
         PaginationView.changePage('decrease');
       }
+      leftElement = getLeftElement();
     };
 
     const mouseDownPage = (event) => {

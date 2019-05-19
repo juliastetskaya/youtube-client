@@ -84,7 +84,6 @@ html {
   padding: 2rem;
   height: calc(100vw/var(--clips-per-page) * 1.2);
 
-
   position: relative;
   display: flex;
   flex-direction: column;

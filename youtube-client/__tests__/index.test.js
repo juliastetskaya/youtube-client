@@ -1,9 +1,9 @@
 import AppView from '../src/view/AppView';
 import AppModel from '../src/model/AppModel';
+import createElement from '../src/view/DomApi';
 import data from './__fixtures__/data';
 import dataForRender from './__fixtures__/dataForRender';
-import createElement from '../src/view/DomApi';
-// import state from './__fixtures__/state';
+
 
 describe('AppView', () => {
   it('Should be a function', () => {
@@ -19,12 +19,6 @@ describe('AppView', () => {
 });
 
 describe('AppModel', () => {
-  // it('Result of work getData', async () => {
-  //   const model = new AppModel(state);
-  //   const result = await model.getData();
-  //   console.log(result);
-  // });
-
   it('ExtractClipData should be a function', () => {
     expect(AppModel.extractClipData).toBeInstanceOf(Function);
   });
