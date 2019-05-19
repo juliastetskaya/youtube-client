@@ -22,7 +22,10 @@
 }
 
 .pagination__item {
-  padding: 0.5rem 2.3rem;
+  padding: 0;
+  margin: 0;
+  width: 9rem;
+  height: 9rem;
   background-color: #ffffff;
   border: 2px solid #a0a0a0;
   border-radius: 50%;
@@ -51,4 +54,16 @@
   background-color: #ff0000;
   border-color: #ff0000;
   color: #ffffff;
+}
+
+.pagination__page-number {
+  position: relative;
+    display: block;
+    width: 9rem;
+    height: 9rem;
+    bottom: 11rem;
+    line-height: 9rem;
+    right: 0.5rem;
+    background-color: #56a83c;
+    border-radius: 50%;
 }

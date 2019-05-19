@@ -44,6 +44,7 @@ export default class Slider {
     const pagination = new PaginationView(1);
     pagination.render();
 
+
     const mouseDownHandler = (event) => {
       event.preventDefault();
       isDown = true;
@@ -57,15 +58,14 @@ export default class Slider {
       slider.classList.remove('active');
     };
 
-    const mouseUpHandler = (event) => {
-      console.log(event.target);
+    const mouseUpHandler = () => {
       isDown = false;
       slider.style.scrollBehavior = 'smooth';
       slider.classList.remove('active');
-      if (step > 0) {
+      if (step > 3) {
         slider.scrollLeft = scrollLeft - document.documentElement.clientWidth;
         PaginationView.changePage('decrease');
-      } else if (step < 0) {
+      } else if (step < -3) {
         slider.scrollLeft = scrollLeft + document.documentElement.clientWidth;
         PaginationView.changePage('increase');
         this.isLastPage();
@@ -105,7 +105,7 @@ export default class Slider {
     const nextPage = document.querySelector('.next-page');
     const paginationList = document.querySelector('.pagination__list');
 
-    const mouseClickHandler = (event) => {
+    const mouseClickPage = (event) => {
       const { target } = event;
       slider.style.scrollBehavior = 'smooth';
       if (target === nextPage) {
@@ -122,15 +122,26 @@ export default class Slider {
       }
     };
 
-    paginationList.addEventListener('click', mouseClickHandler);
-  }
+    const mouseDownPage = (event) => {
+      const { target } = event;
+      if (target === beforePrevPage || target === prevPage || target === nextPage) {
+        target.firstChild.classList.remove('visually-hidden');
 
-  static clear() {
-    const wrapper = document.querySelector('.page__wrapper');
-    const paginationList = document.querySelector('.pagination');
+        target.addEventListener('mouseleave', () => {
+          target.firstChild.classList.add('visually-hidden');
+        });
+      }
+    };
 
-    if (paginationList !== null) {
-      wrapper.removeChild(paginationList);
-    }
+    const mouseUpPage = (event) => {
+      const { target } = event;
+      if (target === beforePrevPage || target === prevPage || target === nextPage) {
+        target.firstChild.classList.add('visually-hidden');
+      }
+    };
+
+    paginationList.addEventListener('click', mouseClickPage);
+    paginationList.addEventListener('mousedown', mouseDownPage);
+    paginationList.addEventListener('mouseup', mouseUpPage);
   }
 }
