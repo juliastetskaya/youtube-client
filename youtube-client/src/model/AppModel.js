@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 export default class AppModel {
   constructor(state) {
     this.state = state;
@@ -29,7 +31,6 @@ export default class AppModel {
 
     const id = data.items.map(clip => clip.id.videoId).join(',');
     const { nextPageToken } = data;
-    // const { totalResults } = data.pageInfo;
     this.pageToken = nextPageToken;
 
     const statisticsUrl = `${urlApi}videos?key=${keyApi}&id=${id}&part=snippet,statistics`;

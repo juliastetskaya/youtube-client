@@ -147,7 +147,6 @@ export default class Slider {
       }
     };
 
-
     paginationList.addEventListener('click', mouseClickPage);
     paginationList.addEventListener('mousedown', mouseDownPage);
     paginationList.addEventListener('mouseup', mouseUpPage);

@@ -10,10 +10,10 @@ build:
 	npm run build
 
 test:
-	npm run test
+	npm test /__tests__/index.test.js
 
 test-watch:
-	npm run test-watch
+	npm test-watch
 
 test-coverage:
 	npm run coverage
