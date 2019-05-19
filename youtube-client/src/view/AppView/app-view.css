@@ -67,7 +67,7 @@ html {
 .clip__link {
   display: block;
   color: #000000;
-  padding: 3rem;
+  padding: 2rem;
   font-size: 6rem;
   line-height: 9rem;
 }
@@ -82,7 +82,8 @@ html {
   background-color: #ffffff;
   border-radius: 3rem;
   padding: 2rem;
-  height: calc(100vw/4 * 1.2);
+  height: calc(100vw/var(--clips-per-page) * 1.2);
+
 
   position: relative;
   display: flex;
@@ -252,9 +253,15 @@ html {
   }
 }
 
+@media (max-width: 1300px) {
+  html {
+    font-size: 2.4px;
+  }
+}
+
 @media (max-width: 1024px) {
   html {
-    font-size: 2.8px;
+    font-size: 2.6px;
   }
 
   .clip__wrapper {

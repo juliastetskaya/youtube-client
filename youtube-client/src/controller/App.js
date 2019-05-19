@@ -32,6 +32,7 @@ export default class App {
 
         if (userRequest.length !== 0) {
           AppView.clearClips();
+          Slider.clear();
           this.state.request = userRequest;
           const data = await model.getData();
 

@@ -39,7 +39,11 @@ export default class AppView {
 
   static clearClips() {
     const clipList = document.querySelector('.clip__list');
-    clipList.innerHTML = '';
+    if (clipList !== null) {
+      document.querySelector('.clip').removeChild(clipList);
+      const newClipList = createElement('ul', 'clip__list');
+      document.querySelector('.clip').append(newClipList);
+    }
   }
 
   static renderClips(data) {

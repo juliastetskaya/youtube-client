@@ -144,4 +144,12 @@ export default class Slider {
     paginationList.addEventListener('mousedown', mouseDownPage);
     paginationList.addEventListener('mouseup', mouseUpPage);
   }
+
+  static clear() {
+    const pageWrapper = document.querySelector('.page__wrapper');
+    const pagination = document.querySelector('.pagination');
+    if (pagination !== null) {
+      pageWrapper.removeChild(pagination);
+    }
+  }
 }
