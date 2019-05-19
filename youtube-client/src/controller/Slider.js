@@ -54,8 +54,13 @@ export default class Slider {
     };
 
     const mouseLeaveHandler = () => {
+      if (isDown) {
+        slider.style.scrollBehavior = 'smooth';
+        slider.scrollLeft += step;
+      }
       isDown = false;
       slider.classList.remove('active');
+      step = 0;
     };
 
     const mouseUpHandler = () => {
@@ -70,6 +75,7 @@ export default class Slider {
         PaginationView.changePage('increase');
         this.isLastPage();
       }
+      step = 0;
     };
 
     const mouseMoveHandler = (event) => {
@@ -83,10 +89,11 @@ export default class Slider {
     };
 
     const resizeHandler = () => {
+      const numberCurrentPage = Number(document.querySelector('.current-page').textContent);
       const currentWidth = window.innerWidth || document.body.clientWidth;
       const difference = previousWidth - currentWidth;
       if (slider.scrollLeft > 0) {
-        slider.scrollLeft -= difference;
+        slider.scrollLeft -= (difference * (numberCurrentPage - 1));
       }
       previousWidth = currentWidth;
     };
@@ -139,6 +146,7 @@ export default class Slider {
         target.firstChild.classList.add('visually-hidden');
       }
     };
+
 
     paginationList.addEventListener('click', mouseClickPage);
     paginationList.addEventListener('mousedown', mouseDownPage);
