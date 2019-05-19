@@ -38,6 +38,7 @@ export default class App {
           document.querySelector('.error').classList.add('visually-hidden');
           this.state.request = userRequest;
           const data = await model.getData();
+          console.log(data);
           if (data.length === 0) {
             document.querySelector('.error').classList.remove('visually-hidden');
           } else {

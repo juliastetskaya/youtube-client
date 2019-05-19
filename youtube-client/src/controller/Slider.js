@@ -98,10 +98,47 @@ export default class Slider {
       previousWidth = currentWidth;
     };
 
+    const touchStartHandler = (event) => {
+      event.preventDefault();
+      isDown = true;
+      slider.classList.add('active');
+      startX = event.changedTouches[0].pageX - slider.offsetLeft;
+      ({ scrollLeft } = slider);
+    };
+
+    const touchMoveHandler = (event) => {
+      slider.style.scrollBehavior = '';
+      if (isDown) {
+        event.preventDefault();
+        const x = event.changedTouches[0].pageX - slider.offsetLeft;
+        step = x - startX;
+        slider.scrollLeft = scrollLeft - step;
+      }
+    };
+
+    const touchEndHandler = () => {
+      isDown = false;
+      slider.style.scrollBehavior = 'smooth';
+      slider.classList.remove('active');
+      if (step > 3) {
+        slider.scrollLeft = scrollLeft - document.documentElement.clientWidth;
+        PaginationView.changePage('decrease');
+      } else if (step < -3) {
+        slider.scrollLeft = scrollLeft + document.documentElement.clientWidth;
+        PaginationView.changePage('increase');
+        this.isLastPage();
+      }
+      step = 0;
+    };
+
     slider.addEventListener('mousedown', mouseDownHandler);
     slider.addEventListener('mouseleave', mouseLeaveHandler);
     slider.addEventListener('mouseup', mouseUpHandler);
     slider.addEventListener('mousemove', mouseMoveHandler);
+
+    slider.addEventListener('touchstart', touchStartHandler);
+    slider.addEventListener('touchmove', touchMoveHandler);
+    slider.addEventListener('touchend', touchEndHandler);
 
     window.addEventListener('resize', resizeHandler);
 
