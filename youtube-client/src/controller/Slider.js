@@ -121,7 +121,6 @@ export default class Slider {
     };
 
     const touchStartHandler = (event) => {
-      event.preventDefault();
       isDown = true;
       slider.classList.add('active');
       startX = event.changedTouches[0].pageX - slider.offsetLeft;
@@ -131,7 +130,6 @@ export default class Slider {
     const touchMoveHandler = (event) => {
       slider.style.scrollBehavior = '';
       if (isDown) {
-        event.preventDefault();
         const x = event.changedTouches[0].pageX - slider.offsetLeft;
         step = x - startX;
         slider.scrollLeft = scrollLeft - step;
