@@ -1,5 +1,3 @@
-.idea
-node_modules
-*.bundle.js
-*.log
+coverage
 dist
+node_modules
